@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBluetooth
 
 /**
     A protocol allowing conforming objects registered to Bluejay to optionally respond to Bluetooth connection events.
@@ -30,6 +31,9 @@ public protocol ConnectionObserver: class {
     
     /// Called whenever a peripheral is disconnected.
     func disconnected(from peripheral: Peripheral)
+    
+    /// Called whenever a peripheral services modified.
+    func servicesModified(for peripheral: Peripheral, invalidatedServices: [CBService])
 }
 
 /// Slightly less gross way to make the ConnectionObserver protocol's functions optional.
@@ -37,6 +41,7 @@ extension ConnectionObserver {
     public func bluetoothAvailable(_ available: Bool) {}
     public func connected(to peripheral: Peripheral) {}
     public func disconnected(from peripheral: Peripheral) {}
+    public func servicesModified(for peripheral: Peripheral, invalidatedServices: [CBService]) {}
 }
 
 /// Allows creating weak references to ConnectionObserver objects, so that Bluejay does not keep strong references to observers and prevent them from being released in memory.

@@ -750,6 +750,12 @@ public class Bluejay: NSObject {
         return data
     }
     
+    public func peripheral(_ peripheral: Peripheral, didModifyServices invalidatedServices: [CBService]) {
+        for observer in observers {
+            observer.weakReference?.servicesModified(for: peripheral, invalidatedServices: invalidatedServices)
+        }
+    }
+    
 }
 
 // MARK: - CBCentralManagerDelegate

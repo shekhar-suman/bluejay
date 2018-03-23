@@ -370,6 +370,14 @@ extension Peripheral: CBPeripheralDelegate {
         handleEvent(.didDiscoverServices, error: error as NSError?)
     }
     
+    public func peripheral(_ peripheral: CBPeripheral, didModifyServices invalidatedServices: [CBService]) {
+        guard let bluejay = bluejay else {
+            preconditionFailure("Cannot handle didModifyServices for peripheral \(self.uuid.uuid.uuidString): Bluejay is nil.")
+        }
+        
+        bluejay.peripheral(self, didModifyServices: invalidatedServices)
+    }
+    
     public func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         handleEvent(.didDiscoverCharacteristics, error: error as NSError?)
     }
