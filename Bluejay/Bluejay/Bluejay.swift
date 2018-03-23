@@ -809,7 +809,7 @@ extension Bluejay: CBCentralManagerDelegate {
         
         guard
             let listenCaches = UserDefaults.standard.dictionary(forKey: Constant.listenCaches),
-            let cacheData = listenCaches[uuid.uuidString] as? [Data]
+            let cacheData = listenCaches[restoreIdentifier!] as? [Data]
         else {
             log("No listens to restore.")
             return
